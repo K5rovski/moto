@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 import re
+import os
 from itertools import cycle
 import six
 import datetime
@@ -437,6 +438,7 @@ class Job(threading.Thread, BaseModel, DockerModel):
                 environment=environment,
                 mounts=mounts,
                 privileged=privileged,
+                network=os.environ.get('DOCKER_NETWORK_NAME', None)
             )
             self.job_state = "RUNNING"
             try:
